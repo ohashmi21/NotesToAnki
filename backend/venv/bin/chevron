@@ -1,4 +1,4 @@
-#!/Users/omairhashmi/Documents/NotesToAnki/venv/bin/python3.12
+#!/Users/omairhashmi/Documents/NotesToAnki/backend/venv/bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys

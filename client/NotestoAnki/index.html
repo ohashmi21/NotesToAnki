@@ -2,44 +2,53 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <title>Notes to Anki</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + TS</title>
   </head>
   <body>
     <div id="Content">
       <h1 id="Header">Notes To Anki</h1>
         <div id="uploadContainer">
-          <form id="uploadForm">
+          <form id="uploadForm" method="post" enctype="multipart/form-data">
             <p>Upload Notes (must be .docx)</p>
             <input type="file" id="notes" name="notes" accept=".doc,.docx" />
             <div id="placeHolder"><p>Notes Uploaded</p></div>
             <p>Deck Name</p>
             <input type="text" name="dname" id="deckName"> <br><br>
-            <button type="button" id="submitBtn">Create Deck</button>
+            <button type="submit" id="submitBtn">Create Deck</button>
           </form>
         </div>
       <p>Not sure how to use? <br> Read <span> here </span></p>
     </div>
-    
+
     <script>
-      document.getElementById('submitBtn').addEventListener('click', function() {
-        const files = document.getElementById('notes').files;
-        const deckName = document.getElementById('deckName').value;
+      document.getElementById('uploadForm').addEventListener('submit', function(event) {
+    event.preventDefault();  // Prevent the form from submitting the traditional way
 
-        if (files.length === 0) {
-          alert("Please upload a file");
-          return;
-        }
+    const formData = new FormData(this);
 
-        const formData = new FormData();  // Declare formData here
-        for (let i = 0; i < files.length; i++) {
-          formData.append('notes', files[i]);
+    fetch('http://127.0.0.1:3000/upload', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-        formData.append('dname', deckName);
-        
-      });
+        return response.blob();  // Get the file as a blob
+    })
+    .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = formData.get('dname') + '.apkg';  // Set the file name for download
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    })
+    .catch(error => console.error('Error:', error));
+});
+
     </script>
-    <script src="script.js"></script>
   </body>
 </html>
