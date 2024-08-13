@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+  </head>
+  <body>
+    <div id="Content">
+      <h1 id="Header">Notes To Anki</h1>
+        <div id="uploadContainer">
+          <form id="uploadForm">
+            <p>Upload Notes (must be .docx)</p>
+            <input type="file" id="notes" name="notes" accept=".doc,.docx" />
+            <div id="placeHolder"><p>Notes Uploaded</p></div>
+            <p>Deck Name</p>
+            <input type="text" name="dname" id="deckName"> <br><br>
+            <button type="button" id="submitBtn">Create Deck</button>
+          </form>
+        </div>
+      <p>Not sure how to use? <br> Read <span> here </span></p>
+    </div>
+    
+    <script>
+      document.getElementById('submitBtn').addEventListener('click', function() {
+        const files = document.getElementById('notes').files;
+        const deckName = document.getElementById('deckName').value;
+
+        if (files.length === 0) {
+          alert("Please upload a file");
+          return;
+        }
+
+        const formData = new FormData();  // Declare formData here
+        for (let i = 0; i < files.length; i++) {
+          formData.append('notes', files[i]);
+        }
+        formData.append('dname', deckName);
+        
+      });
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>
