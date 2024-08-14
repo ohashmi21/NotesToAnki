@@ -7,12 +7,15 @@
 ## How to use 
 
 IMPORTANT:
+
 To specify what information should be turned into a card, surround the information with "#|#"
-->
-Using this symbol denotes a basic card, where everything on the left of the arrow is the front of the card, and everything after is on the back of the card
-[...]
-Using this symbol denotes a cloze card, where everything in the bracket is hidden. There can be multiple clozes on one card
+
+-> : Using this symbol denotes a basic card, where everything on the left of the arrow is the front of the card, and everything after is on the back of the card
+
+[...] : Using this symbol denotes a cloze card, where everything in the bracket is hidden. There can be multiple clozes on one card
+
 Examples
+
 #|# The Mitochondria is the [powerhouse] of the cell #|#
 
 #|# What cells use for energy -> ATP #|#
@@ -27,7 +30,8 @@ Examples
 
 ## Want to Customize it for yourself?
 
-Feel free to fork the repository and adjust the code for your own note taking preferences as long as no monetization is involved. If you have any suggestions please free to contact me at ohashmi21@gmail.com, I am looking to improve the service and would appreciate all the feedback that I can get.
+Feel free to fork the repository and adjust the code for your own note taking preferences as long as no monetization is involved. 
+If you have any suggestions please free to contact me at ohashmi21@gmail.com, I am looking to improve the service and would appreciate all the feedback that I can get!
 
 ## Getting Started
 
