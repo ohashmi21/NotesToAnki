@@ -1,9 +1,10 @@
 from docx import Document
 import genanki
 import re
+
 def process_request(dname, file):
-    doc=read_document(file)
-    def_card,cloze_card=extract_cards(doc)
+    doc = read_document(file)
+    def_card, cloze_card = extract_cards(doc)
     return create_anki_deck(def_card, cloze_card, dname)
 
 def read_document(doc):
@@ -17,9 +18,28 @@ def extract_cards(text):
     definition_cards = []
     cloze_deletion_cards = []
 
-    # Split text into parts separated by '|'
-    parts = text.split('|')
+    # Split text into parts separated by '#|#'
+    parts = []
+    stack = []
+    start_index = None
 
+    i = 0
+    while i < len(text):
+        if text[i:i+3] == "#|#":
+            if not stack:
+                start_index = i + 3  # Start after the first '#|#'
+                stack.append("#|#")
+                i += 3
+            else:
+                # Found a closing '#|#'
+                part = text[start_index:i].strip()  # Extract content between '#|#'
+                parts.append(part)
+                stack.pop()
+                i += 3
+        else:
+            i += 1
+
+    # Now that we have the parts, let's extract cards
     for part in parts:
         # Regex to find "->" patterns for definition cards
         definition_pattern = re.compile(r'(.+?)\s*->\s*(.+)')
@@ -94,8 +114,6 @@ def create_anki_deck(definition_cards, cloze_deletion_cards, deck_name="My Deck"
 
     return deck
 
-
 def save_deck(deck, file_name='output.apkg'):
     # Save the deck as an .apkg file
     genanki.Package(deck).write_to_file(file_name)
-
