@@ -1,6 +1,7 @@
 from flask import Flask, request, send_file
 from flask_cors import CORS  # Import CORS
 from genDeck import process_request, save_deck
+import os
 
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
@@ -16,9 +17,9 @@ def upload_file():
     # Save the deck to a file
     output_file = f"{dname}.apkg"
     save_deck(deck, output_file)
-    
-    # Send the file back to the user
-    return send_file(output_file, as_attachment=True, download_name=output_file)
+    response = send_file(output_file, as_attachment=True, download_name=output_file)
+    os.remove(f"{dname}.apkg")
+    return response
 
 if __name__ == '__main__':
     app.run(port=3000)
