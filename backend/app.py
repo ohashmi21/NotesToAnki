@@ -138,13 +138,13 @@ def upload_file():
     save_deck(deck, output_file)
     app.logger.info(f"Attempting to send file {output_file}")
     response = send_file(output_file, as_attachment=True, download_name=output_file)
-
     if os.path.exists(output_file):
         app.logger.info(f"File {output_file} created successfully.")
     else:
         app.logger.error(f"File {output_file} was not created!")
-
+    
     response = send_file(output_file, as_attachment=True, download_name=output_file)
+    os.remove(f"{dname}.apkg")
     return response
 
 if __name__ == '__main__':
