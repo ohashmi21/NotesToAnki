@@ -136,7 +136,6 @@ def upload_file():
     output_file = f"{dname}.apkg"
     save_deck(deck, output_file)
     response = send_file(output_file, as_attachment=True, download_name=output_file)
-    os.remove(f"{dname}.apkg")
     return response
 
 if __name__ == '__main__':
