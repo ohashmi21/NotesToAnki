@@ -4,6 +4,8 @@
 
 **Notes to Anki** is a web-based application that allows users to upload their notes in `.docx` format and automatically convert them into Anki flashcards. The application supports both basic definition cards and cloze deletion cards, making it easier to study and memorize important information. Notes to Anki is a service that I built in order to create Anki cards for Notes that I took in class, but wanted to review in a efficient manner such as anki cards. That why I decided to build Notes to Anki in a way that it simply needs you to adjust the way that you take notes such that you dictate what information is important, and what you need to reviewed. Below is the way that Notes to Anki expects you to take notes.
 
+See it work at https://main--notestoanki.netlify.app/
+
 ## How to use 
 
 IMPORTANT:
