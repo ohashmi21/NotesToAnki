@@ -133,8 +133,17 @@ def upload_file():
     deck = process_request(dname, file)
     
     # Save the deck to a file
-    output_file = f"{dname}.apkg"
+    output_file = os.path.join(os.getcwd(), f"{dname}.apkg")
+    app.logger.info(f"Attempting to save deck as {output_file}")
     save_deck(deck, output_file)
+    app.logger.info(f"Attempting to send file {output_file}")
+    response = send_file(output_file, as_attachment=True, download_name=output_file)
+
+    if os.path.exists(output_file):
+        app.logger.info(f"File {output_file} created successfully.")
+    else:
+        app.logger.error(f"File {output_file} was not created!")
+
     response = send_file(output_file, as_attachment=True, download_name=output_file)
     return response
 
