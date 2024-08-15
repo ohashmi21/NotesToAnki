@@ -4,7 +4,7 @@ from genDeck import process_request, save_deck
 import os
 
 app = Flask(__name__)
-CORS(app)  # This will enable CORS for all routes
+CORS(app)
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
