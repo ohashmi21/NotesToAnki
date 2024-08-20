@@ -22,20 +22,24 @@
     </div>
 
     <script>
-      document.getElementById('uploadForm').addEventListener('submit', function(event) {
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
     event.preventDefault();  // Prevent the form from submitting the traditional way
 
     const formData = new FormData(this);
 
+    //https://notestoanki-e302c3945d69.herokuapp.com/upload
+    
     fetch('https://notestoanki-e302c3945d69.herokuapp.com/upload', {
         method: 'POST',
         body: formData,
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            return response.json().then(error => {
+                throw new Error(error.error);  // Use the error message from the backend
+            });
         }
-        return response.blob();  // Get the file as a blob
+        return response.blob();  // Get the file as a blob if successful
     })
     .then(blob => {
         const url = window.URL.createObjectURL(blob);
@@ -46,7 +50,10 @@
         a.click();
         a.remove();
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        window.alert("Odd amount of #|#")
+        console.error('Error:', error.message);
+    });
 });
 
     </script>

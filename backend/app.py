@@ -157,7 +157,7 @@ def upload_file():
         return response
     except Exception as e:
         app.logger.error(f"An error occurred: {str(e)}")
-        return jsonify({'error': str(e)}, 500)
+        return jsonify({'error': str(e)}), 500  # Note the comma separating the status code
     
 
 if __name__ == '__main__':
