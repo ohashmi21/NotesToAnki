@@ -141,7 +141,6 @@ def upload_file():
     # Process the file and create the Anki deck
     try:
         deck = process_request(dname, file)
-        
         # Save the deck to a file
         output_file = os.path.join(os.getcwd(), f"{dname}.apkg")
         app.logger.info(f"Attempting to save deck as {output_file}")
